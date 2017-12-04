@@ -1,0 +1,137 @@
+﻿<Window x:Class="MasterView.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MasterView"
+        mc:Ignorable="d" Title="Ogirdor MasterView" Width="800" Height="600" WindowState="Normal" WindowStartupLocation="CenterScreen" 
+        AllowsTransparency="True" WindowStyle="None" Background="Transparent" Foreground="#c4c4c4"
+        Loaded="Window_Loaded" SizeChanged="Window_SizeChanged" MouseWheel="Window_MouseWheel" KeyUp="Window_KeyUp">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="MinHeight" Value="24px" />
+            <Setter Property="MinWidth"  Value="24px" />
+            <Setter Property="Foreground" Value="#c4c4c4" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="#535353">
+                            <Grid x:Name="MyGrid">
+                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3"/>
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="MyGrid" Property="Background">
+                                    <Setter.Value>
+                                        <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                                            <RadialGradientBrush.GradientStops>
+                                                <GradientStop Color="#3a3a3a" Offset="0" />
+                                                <GradientStop Color="#535353" Offset="1.0" />
+                                            </RadialGradientBrush.GradientStops>
+                                        </RadialGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Border BorderBrush="#282828" BorderThickness="1" Background="#535353" CornerRadius="5 5 0 0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="1" Name="xFrame" Background="#282828" ClipToBounds="True" MouseLeftButtonDown="xFrame_MouseLeftButtonDown" MouseMove="xFrame_MouseMove">
+                <Image Name="xImage"></Image>
+            </Grid>
+
+            <Grid Grid.Row="1" Name="xOptions" VerticalAlignment="Top" HorizontalAlignment="Right">
+                <StackPanel>
+                    <TextBlock Name="xZoomValue">Zoom</TextBlock>
+                    <TextBlock Name="xColorValue">Color</TextBlock>
+                </StackPanel>
+            </Grid>
+
+            <Border Grid.Row="0" Name="xHeader" Background="#535353" BorderBrush="#6a6a6a" BorderThickness="0 1 0 0" CornerRadius="5 5 0 0" MouseMove="xHeader_MouseMove">
+                <DockPanel>
+                    <Button DockPanel.Dock="Right" Name="xClose" Click="xClose_Click">
+                        <Image Source="resources/icons8-close-window.png" Width="24" Height="24" Opacity="0.4"></Image>
+                    </Button>
+                    <Button DockPanel.Dock="Right" Name="xFullsize" Click="xFullsize_Click">
+                        <Image Source="resources/icons8-full-window.png" Width="24" Height="24" Opacity="0.4"></Image>
+                    </Button>
+                    <Button DockPanel.Dock="Right" Name="xMaximize" Click="xMaximize_Click">
+                        <Image Source="resources/icons8-maximize-window.png" Width="24" Height="24" Opacity="0.4"></Image>
+                    </Button>
+                    <Button DockPanel.Dock="Right" Name="xRestore" Click="xRestore_Click">
+                        <Image Source="resources/icons8-restore-window.png" Width="24" Height="24" Opacity="0.4"></Image>
+                    </Button>
+                    <Button DockPanel.Dock="Right" Name="xMinimize" Click="xMinimize_Click" Margin="20 0 0 0">
+                        <Image Source="resources/icons8-minimize-window.png" Width="24" Height="24" Opacity="0.4"></Image>
+                    </Button>
+
+                    <Button DockPanel.Dock="Right" Name="xStretchASize" Click="xStretchSize_Click">
+                        <Image Source="resources/icons8-expand.png" Width="24" Height="24" Opacity="0.4"></Image>
+                    </Button>
+                    <Button DockPanel.Dock="Right" Name="xStretchBSize" Click="xStretchSize_Click" Visibility="Collapsed">
+                        <Image Source="resources/icons8-collapse.png" Width="24" Height="24" Opacity="0.4"></Image>
+                    </Button>
+                    <Button DockPanel.Dock="Right" Name="xCenterPosition" Click="xCenterPosition_Click">
+                        <Image Source="resources/icons8-collect.png" Width="24" Height="24" Opacity="0.4"></Image>
+                    </Button>
+                    <Button DockPanel.Dock="Right" Name="xZoomA" Click="xZoom_Click" Margin="20 0 0 0">
+                        <Image Source="resources/icons8-1_1.png" Width="24" Height="24" Opacity="0.4"></Image>
+                    </Button>
+                    <Button DockPanel.Dock="Right" Name="xZoomB" Click="xZoom_Click" Margin="20 0 0 0" Visibility="Collapsed">
+                        <Image Source="resources/icons8-1_1.png" Width="24" Height="24" Opacity="0.2"></Image>
+                    </Button>
+
+                    <Button DockPanel.Dock="Right" Name="xPixelView" Click="xPixelView_Click">
+                        <Image Source="resources/icons8-grid.png" Width="24" Height="24" Opacity="0.4"></Image>
+                    </Button>
+                    <Button DockPanel.Dock="Right" Name="xSmoothView" Click="xPixelView_Click">
+                        <Image Source="resources/icons8-grid-2.png" Width="24" Height="24" Opacity="0.4"></Image>
+                    </Button>
+                    <Button DockPanel.Dock="Right" Name="xInvertAView" Click="xInvertView_Click">
+                        <Image Source="resources/icons8-invert-selection.png" Width="24" Height="24" Opacity="0.4"></Image>
+                    </Button>
+                    <Button DockPanel.Dock="Right" Name="xInvertBView" Click="xInvertView_Click" Visibility="Collapsed">
+                        <Image Source="resources/icons8-invert-selection-2.png" Width="24" Height="24" Opacity="0.4"></Image>
+                    </Button>
+                    <Button DockPanel.Dock="Right" Name="xInvertAImage" Click="xInvertView_Click">
+                        <Image Source="resources/icons8-invert-colors.png" Width="24" Height="24" Opacity="0.4"></Image>
+                    </Button>
+                    <Button DockPanel.Dock="Right" Name="xInvertBImage" Click="xInvertView_Click" Visibility="Collapsed">
+                        <Image Source="resources/icons8-invert-colors-2.png" Width="24" Height="24" Opacity="0.4"></Image>
+                    </Button>
+                    <Button DockPanel.Dock="Right" Name="xColor" Click="xInvertView_Click" Margin="20 0 0 0">
+                        <Image Source="resources/icons8-color-palette.png" Width="24" Height="24" Opacity="0.4"></Image>
+                    </Button>
+
+                    <Button DockPanel.Dock="Right" Name="xNextPicture" Click="xNextPicture_Click">
+                        <Image Source="resources/icons8-next-arrow.png" Width="24" Height="24" Opacity="0.4"></Image>
+                    </Button>
+                    <Button DockPanel.Dock="Right" Name="xBackPicture" Click="xBackPicture_Click">
+                        <Image Source="resources/icons8-back-arrow.png" Width="24" Height="24" Opacity="0.4"></Image>
+                    </Button>
+
+                    <TextBlock DockPanel.Dock="Left" Name="xTitle" Margin="5">Ogirdor MasterView</TextBlock>
+
+                    <TextBlock Name="xFile" Margin="5" Opacity="0.75">test.jpg</TextBlock>
+                </DockPanel>
+            </Border>
+        </Grid>
+    </Border>
+
+</Window>
