@@ -66,7 +66,7 @@ namespace MasterView
                 if (xZoom < 10000 && Math.Floor(currentSize.Width * xZoom / 1000) > 1 && Math.Floor(currentSize.Height * xZoom / 1000) > 1)
                 {
                     currentZoom = xZoom;
-                    xZoomValue.Text = "Zoom : " + (currentZoom / 1000) + "%";
+                    xZoomValue.Text = "Zoom : " + (currentZoom / 10) + "%";
                     rePosition(false, false, currentZoom - lastZoom);
                 }
             }
@@ -233,6 +233,8 @@ namespace MasterView
             {
                 xStretchASize.Visibility = Visibility.Visible;
                 xStretchBSize.Visibility = Visibility.Collapsed;
+                xZoom.IsEnabled = false;
+                xCenterPosition.IsEnabled = false;
                 currentStretch = Stretch.Uniform;
                 rePosition(true, false, 0);
             }
@@ -240,6 +242,8 @@ namespace MasterView
             {
                 xStretchASize.Visibility = Visibility.Collapsed;
                 xStretchBSize.Visibility = Visibility.Visible;
+                xZoom.IsEnabled = true;
+                xCenterPosition.IsEnabled = true;
                 currentStretch = Stretch.None;
                 rePosition(true, false, 0);
             }
@@ -249,15 +253,12 @@ namespace MasterView
         {
             if (xZoomValue.Visibility == Visibility.Visible)
             {
-                xZoomA.Visibility = Visibility.Collapsed;
-                xZoomB.Visibility = Visibility.Visible;
                 xZoomValue.Visibility = Visibility.Collapsed;
             }
             else
             {
-                xZoomA.Visibility = Visibility.Visible;
-                xZoomB.Visibility = Visibility.Collapsed;
                 xZoomValue.Visibility = Visibility.Visible;
+                xZoomValue.Text = "Zoom : " + (currentZoom / 10) + "%";
             }
         }
 
@@ -296,6 +297,9 @@ namespace MasterView
 
         private void xRestore_Click(object sender, RoutedEventArgs e)
         {
+            xRestore.Visibility = Visibility.Collapsed;
+            xMaximize.Visibility = Visibility.Visible;
+            xFullsize.Visibility = Visibility.Visible;
             saveWindowsLocation();
             windowsMaximized = false;
             this.WindowState = WindowState.Normal;
@@ -306,22 +310,34 @@ namespace MasterView
                 this.Width = lastWindowSize.Width;
                 this.Height = lastWindowSize.Height;
             }
+            xWindow.Padding = new Thickness(0);
+            xWindow.CornerRadius = new CornerRadius(5, 5, 0, 0);
         }
 
         private void xMaximize_Click(object sender, RoutedEventArgs e)
         {
+            xRestore.Visibility = Visibility.Visible;
+            xMaximize.Visibility = Visibility.Collapsed;
+            xFullsize.Visibility = Visibility.Visible;
             saveWindowsLocation();
             this.WindowState = WindowState.Normal;
             this.Top = 0;
             this.Left = 0;
             this.Width = SystemParameters.FullPrimaryScreenWidth;
             this.Height = SystemParameters.FullPrimaryScreenHeight + SystemParameters.CaptionHeight;
+            xWindow.Padding = new Thickness(0);
+            xWindow.CornerRadius = new CornerRadius(0);
         }
 
         private void xFullsize_Click(object sender, RoutedEventArgs e)
         {
+            xRestore.Visibility = Visibility.Visible;
+            xMaximize.Visibility = Visibility.Visible;
+            xFullsize.Visibility = Visibility.Collapsed;
             saveWindowsLocation();
             this.WindowState = WindowState.Maximized;
+            xWindow.Padding = new Thickness(6, 6, 6, 0);
+            xWindow.CornerRadius = new CornerRadius(0);
         }
 
         private void xClose_Click(object sender, RoutedEventArgs e)

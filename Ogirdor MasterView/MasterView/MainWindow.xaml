@@ -21,7 +21,7 @@
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Background="#535353">
                             <Grid x:Name="MyGrid">
-                                <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3"/>
+                                <ContentPresenter x:Name="MyContent" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3"/>
                             </Grid>
                         </Border>
 
@@ -38,6 +38,9 @@
                                     </Setter.Value>
                                 </Setter>
                             </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="MyContent" Property="Opacity" Value="0.4" />
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
@@ -45,7 +48,7 @@
         </Style>
     </Window.Resources>
 
-    <Border BorderBrush="#282828" BorderThickness="1" Background="#535353" CornerRadius="5 5 0 0">
+    <Border Name="xWindow" BorderBrush="#282828" BorderThickness="1" Background="#535353" CornerRadius="5 5 0 0">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -58,8 +61,8 @@
 
             <Grid Grid.Row="1" Name="xOptions" VerticalAlignment="Top" HorizontalAlignment="Right">
                 <StackPanel>
-                    <TextBlock Name="xZoomValue">Zoom</TextBlock>
-                    <TextBlock Name="xColorValue">Color</TextBlock>
+                    <TextBlock Name="xZoomValue" Padding="6 3">Zoom</TextBlock>
+                    <TextBlock Name="xColorValue" Padding="6 3">Color</TextBlock>
                 </StackPanel>
             </Grid>
 
@@ -74,7 +77,7 @@
                     <Button DockPanel.Dock="Right" Name="xMaximize" Click="xMaximize_Click">
                         <Image Source="resources/icons8-maximize-window.png" Width="24" Height="24" Opacity="0.4"></Image>
                     </Button>
-                    <Button DockPanel.Dock="Right" Name="xRestore" Click="xRestore_Click">
+                    <Button DockPanel.Dock="Right" Name="xRestore" Click="xRestore_Click" Visibility="Collapsed">
                         <Image Source="resources/icons8-restore-window.png" Width="24" Height="24" Opacity="0.4"></Image>
                     </Button>
                     <Button DockPanel.Dock="Right" Name="xMinimize" Click="xMinimize_Click" Margin="20 0 0 0">
@@ -87,20 +90,20 @@
                     <Button DockPanel.Dock="Right" Name="xStretchBSize" Click="xStretchSize_Click" Visibility="Collapsed">
                         <Image Source="resources/icons8-collapse.png" Width="24" Height="24" Opacity="0.4"></Image>
                     </Button>
-                    <Button DockPanel.Dock="Right" Name="xCenterPosition" Click="xCenterPosition_Click">
+                    <Button DockPanel.Dock="Right" Name="xCenterPosition" Click="xCenterPosition_Click" IsEnabled="False">
                         <Image Source="resources/icons8-collect.png" Width="24" Height="24" Opacity="0.4"></Image>
                     </Button>
-                    <Button DockPanel.Dock="Right" Name="xZoomA" Click="xZoom_Click" Margin="20 0 0 0">
+                    <Button DockPanel.Dock="Right" Name="xZoom" Click="xZoom_Click" Margin="20 0 0 0" IsEnabled="False">
                         <Image Source="resources/icons8-1_1.png" Width="24" Height="24" Opacity="0.4"></Image>
                     </Button>
-                    <Button DockPanel.Dock="Right" Name="xZoomB" Click="xZoom_Click" Margin="20 0 0 0" Visibility="Collapsed">
+                    <!--<Button DockPanel.Dock="Right" Name="xZoomB" Click="xZoom_Click" Margin="20 0 0 0" Visibility="Collapsed">
                         <Image Source="resources/icons8-1_1.png" Width="24" Height="24" Opacity="0.2"></Image>
-                    </Button>
+                    </Button>-->
 
                     <Button DockPanel.Dock="Right" Name="xPixelView" Click="xPixelView_Click">
                         <Image Source="resources/icons8-grid.png" Width="24" Height="24" Opacity="0.4"></Image>
                     </Button>
-                    <Button DockPanel.Dock="Right" Name="xSmoothView" Click="xPixelView_Click">
+                    <Button DockPanel.Dock="Right" Name="xSmoothView" Click="xPixelView_Click" Visibility="Collapsed">
                         <Image Source="resources/icons8-grid-2.png" Width="24" Height="24" Opacity="0.4"></Image>
                     </Button>
                     <Button DockPanel.Dock="Right" Name="xInvertAView" Click="xInvertView_Click">
