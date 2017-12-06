@@ -26,3 +26,17 @@ C:\TFS\Ogirdor\masterview\Ogirdor MasterView\MasterView\obj\Debug\MainWindow.bam
 C:\TFS\Ogirdor\masterview\Ogirdor MasterView\MasterView\obj\Debug\MasterView.g.resources
 C:\TFS\Ogirdor\masterview\Ogirdor MasterView\MasterView\obj\Debug\MasterView.Properties.Resources.resources
 C:\TFS\Ogirdor\masterview\Ogirdor MasterView\MasterView\obj\Debug\MasterView.csproj.GenerateResource.Cache
+C:\GitHub\masterview\Ogirdor MasterView\MasterView\bin\Debug\MasterView.exe.config
+C:\GitHub\masterview\Ogirdor MasterView\MasterView\obj\Debug\MasterView.exe
+C:\GitHub\masterview\Ogirdor MasterView\MasterView\obj\Debug\MasterView.pdb
+C:\GitHub\masterview\Ogirdor MasterView\MasterView\bin\Debug\MasterView.exe
+C:\GitHub\masterview\Ogirdor MasterView\MasterView\bin\Debug\MasterView.pdb
+C:\GitHub\masterview\Ogirdor MasterView\MasterView\obj\Debug\MasterView.csprojResolveAssemblyReference.cache
+C:\GitHub\masterview\Ogirdor MasterView\MasterView\obj\Debug\MainWindow.g.cs
+C:\GitHub\masterview\Ogirdor MasterView\MasterView\obj\Debug\App.g.cs
+C:\GitHub\masterview\Ogirdor MasterView\MasterView\obj\Debug\MasterView_MarkupCompile.cache
+C:\GitHub\masterview\Ogirdor MasterView\MasterView\obj\Debug\MasterView_MarkupCompile.lref
+C:\GitHub\masterview\Ogirdor MasterView\MasterView\obj\Debug\MainWindow.baml
+C:\GitHub\masterview\Ogirdor MasterView\MasterView\obj\Debug\MasterView.g.resources
+C:\GitHub\masterview\Ogirdor MasterView\MasterView\obj\Debug\MasterView.Properties.Resources.resources
+C:\GitHub\masterview\Ogirdor MasterView\MasterView\obj\Debug\MasterView.csproj.GenerateResource.Cache

@@ -100,22 +100,22 @@
                         <Image Source="resources/icons8-1_1.png" Width="24" Height="24" Opacity="0.2"></Image>
                     </Button>-->
 
-                    <Button DockPanel.Dock="Right" Name="xPixelView" Click="xPixelView_Click">
+                    <Button DockPanel.Dock="Right" Name="xPixelAView" Click="xPixelView_Click">
                         <Image Source="resources/icons8-grid.png" Width="24" Height="24" Opacity="0.4"></Image>
                     </Button>
-                    <Button DockPanel.Dock="Right" Name="xSmoothView" Click="xPixelView_Click" Visibility="Collapsed">
+                    <Button DockPanel.Dock="Right" Name="xPixelBView" Click="xPixelView_Click" Visibility="Collapsed">
                         <Image Source="resources/icons8-grid-2.png" Width="24" Height="24" Opacity="0.4"></Image>
                     </Button>
                     <Button DockPanel.Dock="Right" Name="xInvertAView" Click="xInvertView_Click">
-                        <Image Source="resources/icons8-invert-selection.png" Width="24" Height="24" Opacity="0.4"></Image>
-                    </Button>
-                    <Button DockPanel.Dock="Right" Name="xInvertBView" Click="xInvertView_Click" Visibility="Collapsed">
                         <Image Source="resources/icons8-invert-selection-2.png" Width="24" Height="24" Opacity="0.4"></Image>
                     </Button>
-                    <Button DockPanel.Dock="Right" Name="xInvertAImage" Click="xInvertView_Click">
+                    <Button DockPanel.Dock="Right" Name="xInvertBView" Click="xInvertView_Click" Visibility="Collapsed">
+                        <Image Source="resources/icons8-invert-selection.png" Width="24" Height="24" Opacity="0.4"></Image>
+                    </Button>
+                    <Button DockPanel.Dock="Right" Name="xInvertAImage" Click="xInvertImage_Click">
                         <Image Source="resources/icons8-invert-colors.png" Width="24" Height="24" Opacity="0.4"></Image>
                     </Button>
-                    <Button DockPanel.Dock="Right" Name="xInvertBImage" Click="xInvertView_Click" Visibility="Collapsed">
+                    <Button DockPanel.Dock="Right" Name="xInvertBImage" Click="xInvertImage_Click" Visibility="Collapsed">
                         <Image Source="resources/icons8-invert-colors-2.png" Width="24" Height="24" Opacity="0.4"></Image>
                     </Button>
                     <Button DockPanel.Dock="Right" Name="xColor" Click="xInvertView_Click" Margin="20 0 0 0">

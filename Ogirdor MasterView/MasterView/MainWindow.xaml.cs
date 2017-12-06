@@ -33,7 +33,8 @@ namespace MasterView
         Stretch currentStretch = Stretch.Uniform;
         int currentZoom = 1000;
         bool isPixelMode = false;
-        bool isBlackMode = true;
+        //bool isBlackMode = true;
+        bool isGrayScale = false;
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -89,8 +90,8 @@ namespace MasterView
                 lastPoint = e.GetPosition(xFrame);
                 lastPosition = new Thickness(xImage.Margin.Left, xImage.Margin.Top, xImage.Margin.Right, xImage.Margin.Bottom);
 
-                var imgPoint = e.GetPosition(xImage);
-                var bmap = (BitmapImage)xImage.Source;
+                //var imgPoint = e.GetPosition(xImage);
+                //var bmap = (BitmapImage)xImage.Source;
             }
         }
 
@@ -111,7 +112,21 @@ namespace MasterView
                 currentStretch = Stretch.Uniform;
                 currentZoom = 1000;
 
-                xImage.Source = bmap;
+                if (isGrayScale)
+                {
+                    BitmapImage aux = bmap;
+                    FormatConvertedBitmap gbmap = new FormatConvertedBitmap();
+                    gbmap.BeginInit();
+                    gbmap.Source = bmap;
+                    gbmap.DestinationFormat = PixelFormats.Gray32Float;
+                    gbmap.EndInit();
+                    xImage.Source = gbmap;
+                }
+                else
+                {
+                    xImage.Source = bmap;
+                }
+
                 xImage.Stretch = Stretch.Uniform;
                 rePosition(true, false, 0);
 
@@ -151,37 +166,7 @@ namespace MasterView
             }
         }
 
-        private void xCenterPosition_Click(object sender, RoutedEventArgs e)
-        {
-            if (currentStretch == Stretch.None)
-            {
-                rePosition(true, false, 0);
-            }
-        }
-
-        private void xPixelView_Click(object sender, RoutedEventArgs e)
-        {
-            isPixelMode = !isPixelMode;
-            if (isPixelMode)
-            {
-                RenderOptions.SetBitmapScalingMode(xImage, BitmapScalingMode.NearestNeighbor);
-            }
-            else
-            {
-                RenderOptions.SetBitmapScalingMode(xImage, BitmapScalingMode.Unspecified);
-            }
-        }
-
-        private void xInvertView_Click(object sender, RoutedEventArgs e)
-        {
-            isBlackMode = !isBlackMode;
-            SolidColorBrush brushFrameB = new SolidColorBrush(Color.FromRgb(40, 40, 40));
-            SolidColorBrush brushFrameW = new SolidColorBrush(Color.FromRgb(215, 215, 215));
-            xFrame.Background = isBlackMode ? brushFrameB : brushFrameW;
-            //SolidColorBrush brushOptionsB = new SolidColorBrush(Color.FromRgb(70, 70, 70));
-            //SolidColorBrush brushOptionsW = new SolidColorBrush(Color.FromRgb(185, 185, 185));
-            //xOptions.Background = isBlackMode ? brushOptionsB : brushOptionsW;
-        }
+        /* Browser */
 
         private void xBackPicture_Click(object sender, RoutedEventArgs e)
         {
@@ -225,6 +210,51 @@ namespace MasterView
             }
         }
 
+        /* Image options */
+
+        private void xInvertImage_Click(object sender, RoutedEventArgs e)
+        {
+            isGrayScale = !isGrayScale;
+            showImage(currentFile.FullName);
+        }
+
+        private void xPixelView_Click(object sender, RoutedEventArgs e)
+        {
+            isPixelMode = !isPixelMode;
+            if (isPixelMode)
+            {
+                xPixelAView.Visibility = Visibility.Collapsed;
+                xPixelBView.Visibility = Visibility.Visible;
+                RenderOptions.SetBitmapScalingMode(xImage, BitmapScalingMode.NearestNeighbor);
+            }
+            else
+            {
+                xPixelAView.Visibility = Visibility.Visible;
+                xPixelBView.Visibility = Visibility.Collapsed;
+                RenderOptions.SetBitmapScalingMode(xImage, BitmapScalingMode.Unspecified);
+            }
+        }
+
+        private void xInvertView_Click(object sender, RoutedEventArgs e)
+        {
+            xFrame.Background = new SolidColorBrush(getInvertColor(((SolidColorBrush)xFrame.Background).Color));
+            if (xInvertAView.Visibility == Visibility.Visible)
+            {
+                xInvertAView.Visibility = Visibility.Collapsed;
+                xInvertBView.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                xInvertAView.Visibility = Visibility.Visible;
+                xInvertBView.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private Color getInvertColor(Color color)
+        {
+            return Color.FromRgb((byte)(255 - color.R), (byte)(255 - color.G), (byte)(255 - color.B));
+        }
+
         /* Image size */
 
         private void xStretchSize_Click(object sender, RoutedEventArgs e)
@@ -233,8 +263,9 @@ namespace MasterView
             {
                 xStretchASize.Visibility = Visibility.Visible;
                 xStretchBSize.Visibility = Visibility.Collapsed;
-                xZoom.IsEnabled = false;
                 xCenterPosition.IsEnabled = false;
+                xZoom.IsEnabled = false;
+                xZoomValue.Text = "";
                 currentStretch = Stretch.Uniform;
                 rePosition(true, false, 0);
             }
@@ -242,23 +273,30 @@ namespace MasterView
             {
                 xStretchASize.Visibility = Visibility.Collapsed;
                 xStretchBSize.Visibility = Visibility.Visible;
-                xZoom.IsEnabled = true;
                 xCenterPosition.IsEnabled = true;
+                xZoom.IsEnabled = true;
+                xZoomValue.Text = "Zoom : " + (currentZoom / 10) + "%";
                 currentStretch = Stretch.None;
+                rePosition(true, false, 0);
+            }
+        }
+
+        private void xCenterPosition_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentStretch == Stretch.None)
+            {
                 rePosition(true, false, 0);
             }
         }
 
         private void xZoom_Click(object sender, RoutedEventArgs e)
         {
-            if (xZoomValue.Visibility == Visibility.Visible)
+            if (currentStretch == Stretch.None)
             {
-                xZoomValue.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                xZoomValue.Visibility = Visibility.Visible;
-                xZoomValue.Text = "Zoom : " + (currentZoom / 10) + "%";
+                var lastZoom = currentZoom;
+                currentZoom = 1000;
+                xZoomValue.Text = "Zoom : 100%";
+                rePosition(false, false, 1000 - lastZoom);
             }
         }
 
